@@ -40,11 +40,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/driver/driver.module').then( m => m.DriverPageModule)
   },
   {
-    path: 'passenger',canActivate:[AngularFireAuthGuard],data:{authGuardPipe:redireccionarlogin},
-    loadChildren: () => import('./pages/passenger/passenger.module').then( m => m.PassengerPageModule)
-  },
-  {
-    path: 'user-profile',
+    path: 'user-profile',canActivate:[AngularFireAuthGuard],data:{authGuardPipe:redireccionarlogin},
     loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
   {

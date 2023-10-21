@@ -61,8 +61,7 @@ export class SignupPage implements OnInit {
         if (user) {
           await this.helper.showToast("Usuario registrado exitosamente");
           loading.dismiss();
-          // Redirigir al usuario a su perfil de datos después de registrarse
-          this.router.navigate(['/user-profile']);
+          this.router.navigate(['/home']);
         }
       } else {
         await this.helper.showAlert("Formulario inválido", "Error");

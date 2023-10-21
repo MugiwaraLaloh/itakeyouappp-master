@@ -12,10 +12,8 @@ export class UserProfilePage implements OnInit {
   constructor(private authService: AuthenticationService) {}
 
   ngOnInit() {
-    // Aquí puedes obtener la información del usuario autenticado desde AuthenticationService
     this.authService.getProfile().then((user) => {
       if (user) {
-        // Asignar la información del usuario a userData
         this.userData = {
           email: user.email,
           
@@ -31,7 +29,6 @@ export class UserProfilePage implements OnInit {
         const longitude = position.coords.longitude;
 
         try {
-          // Usar una API de geolocalización inversa para obtener la dirección
           const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
           const data = await response.json();
 
@@ -40,7 +37,6 @@ export class UserProfilePage implements OnInit {
             const comuna = data.address.city;
             const calle = data.address.road;
 
-            // Mensaje al usuario con la ubicación
             const mensaje = `Tu vehículo ya va para ${comuna}, ${calle}, ${region}`;
             alert(mensaje);
 
