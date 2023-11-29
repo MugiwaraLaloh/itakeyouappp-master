@@ -48,9 +48,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/persona/persona.module').then( m => m.PersonaPageModule)
   },
   {
-    path: 'camara',
-    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
+    path: 'visualizarvehiculo',canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redireccionarlogin },
+    loadChildren: () => import('./pages/visualizarvehiculo/visualizarvehiculo.module').then( m => m.VisualizarvehiculoPageModule)
   },
+  {
+    path: 'agregarvehiculo',canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redireccionarlogin },
+    loadChildren: () => import('./pages/agregarvehiculo/agregarvehiculo.module').then( m => m.AgregarvehiculoPageModule)
+  },
+  
 ];
 
 @NgModule({
