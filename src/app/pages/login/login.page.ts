@@ -79,38 +79,40 @@ export class LoginPage implements OnInit, OnDestroy {
 
   async login() {
     const loading = await this.helperService.showLoading("Cargando...");
-
-    if (this.loginForm.value.email == "") {
+  
+    const email = this.loginForm.value.email.trim();
+    const password = this.loginForm.value.password.trim();
+  
+    if (email === "") {
       await loading.dismiss();
       await this.helperService.showAlert("Debe ingresar un email", "Error");
       return;
     }
-    if (this.loginForm.value.password == " ") {
-      loading.dismiss();
-      this.helperService.showAlert("Debe ingresar una contraseña", "Error");
+    if (password === "") {
+      await loading.dismiss();
+      await this.helperService.showAlert("Debe ingresar una contraseña", "Error");
       return;
     }
-    if (this.loginForm?.valid) {
-      const user = await this.authService
-        .loginUser(this.loginForm.value.email, this.loginForm.value.password)
-        .catch(async (error) => {
-          console.log(error);
-          loading.dismiss();
-        });
-
+  
+    try {
+      const user = await this.authService.loginUser(email, password);
+  
       if (user) {
-        // Guardar datos de inicio de sesión en Local Storage
-        localStorage.setItem('userEmail', this.loginForm.value.email);
-        localStorage.setItem('userPassword', this.loginForm.value.password);
-
-        loading.dismiss();
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userPassword', password);
+  
+        await loading.dismiss();
         this.route.navigate(['/home']);
       } else {
-        console.log('Provide correct credentials');
+        await loading.dismiss();
+        await this.helperService.showAlert("Credenciales incorrectas", "Error de inicio de sesión");
       }
+    } catch (error) {
+      console.error(error);
+      await loading.dismiss();
+      await this.helperService.showAlert("Error al iniciar sesión. Por favor, inténtalo de nuevo.", "Error de inicio de sesión");
     }
   }
-
   togglePassword(): void {
     this.showPassword = !this.showPassword;
 
