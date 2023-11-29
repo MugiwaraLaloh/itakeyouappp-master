@@ -3,13 +3,11 @@
     <ion-title>
       Perfil de Usuario
     </ion-title>
-    <ion-button slot="start">
-      <ion-back-button defaultHref="/landing"></ion-back-button>
-   </ion-button> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-back-button defaultHref="/home"></ion-back-button>
   <ion-card>
     <ion-card-header>
       Información del Usuario
@@ -24,7 +22,6 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button expand="full" (click)="solicitarVehiculo()">Solicitar Vehículo</ion-button>
 </ion-content>
 
 
